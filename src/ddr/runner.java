@@ -19,6 +19,7 @@ public class runner {
 		frame.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
         frame.pack();
         frame.setVisible(true);
+        frame.addKeyListener(panel);
         setUp();
 	}
 	
