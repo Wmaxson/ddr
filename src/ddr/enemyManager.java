@@ -8,22 +8,17 @@ public class enemyManager {
 	int listPlace = 0;
 	ArrayList<lazers> lazerList; 
 	lazers lazer;
-	int launchtime = 0;
+	long launchtime = 0;
 	public enemyManager() {
 	lazerList= new ArrayList<>();	
 	launchtime = Panel.totalMS;
 	}
 	
 	public void update() {
-		if () {
-			
-		}
+		if (launchtime == Panel.totalMS) {
 			if (attackPatternObject.pat[listPlace] == 0) {
 				
-				
-				
-				
-				
+			launchtime += 100;
 				
 			}else if(attackPatternObject.pat[listPlace] == 1) {
 				
@@ -43,6 +38,8 @@ public class enemyManager {
 				
 			}
 			listPlace++;
+		}
+			
 		
 	}
 
