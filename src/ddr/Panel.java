@@ -4,13 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.Timer;
 import javax.swing.JPanel;
-
 public class Panel extends JPanel implements ActionListener, KeyListener{  
-
-	
 	
 	player Player;
 	Timer timer;
@@ -23,10 +19,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 	public static float totalTime = 0;
 	
 	public Panel() {
-		
 				
-		
-		
 		timer = new Timer(1000/60, this);
 		
 		Player = new player(375, 375, 50,50);
@@ -35,7 +28,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		
 		obj = new GameObject(10,10,0,0);
 	}
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Player.update();
@@ -47,7 +39,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		frameTime = (float)(endTime-startTime)/1000.0f;
 		totalTime+=frameTime;
 		startTime = endTime;
-		
 		System.out.println(totalTime);
 		
 	}
