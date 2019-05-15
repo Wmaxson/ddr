@@ -5,9 +5,11 @@ import java.awt.Graphics;
 
 public class lazers extends GameObject{
 		int dir;
-	public lazers(int x1, int y1, int width1, int height1, int dir1) {
+		int speed;
+	public lazers(int x1, int y1, int width1, int height1, int dir1, int speed1) {
 		super(x1, y1, width1, height1);
 		dir = dir1;
+		speed = speed1;
 		// TODO Auto-generated constructor stub
 	}
 			//1 = Up
@@ -17,13 +19,13 @@ public class lazers extends GameObject{
 	
 	public void update() {
 		if (dir == 1) {
-			y++;
+			y+=speed;
 		} else if (dir == 2) {
-			y--;
+			y-=speed;
 		} else if (dir == 3) {
-			x++;
+			x+=speed;
 		} else if (dir == 4) {
-			x--;
+			x-=speed;
 		} else {
 			
 		}

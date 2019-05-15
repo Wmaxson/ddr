@@ -17,7 +17,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 	public static long totalMS = 0;
 	public static float frameTime = 0;
 	public static float totalTime = 0;
-	
+	enemyManager man = new enemyManager();
+	sound s;
 	public Panel() {
 				
 		timer = new Timer(1000/60, this);
@@ -27,15 +28,18 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		gameStart();
 		
 		obj = new GameObject(10,10,0,0);
+		
+		s = new sound();
+		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Player.update();
+		man.update();
 		//System.out.println("yee");
 		repaint();
-		
 		endTime = System.currentTimeMillis();
-		totalMS = endTime-startTime;
+		totalMS += endTime-startTime;
 		frameTime = (float)(endTime-startTime)/1000.0f;
 		totalTime+=frameTime;
 		startTime = endTime;
@@ -47,11 +51,15 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		obj.draw(g);  
 		Player.draw(g);
 		Player.drawSheild(g);
+		
+		man.dlList(g);
+		
 	 }
 	
 	public void gameStart() {
 		startTime = System.currentTimeMillis();
 		timer.start();
+		
 	}
 	@Override
 	

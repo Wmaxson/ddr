@@ -1,5 +1,6 @@
 package ddr;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 
@@ -15,38 +16,51 @@ public class enemyManager {
 	}
 	
 	public void update() {
-		if (launchtime == Panel.totalMS) {
-			if (attackPatternObject.pat[listPlace] == 0) {
+		System.out.println("totalMS = " + Panel.totalMS);
+		if (launchtime <= Panel.totalMS) {
+			
+			
+			
+			if (attackPatternObject.pat1[listPlace] == 0) {
 				
 			launchtime += 100;
 				
-			}else if(attackPatternObject.pat[listPlace] == 1) {
+			}else if(attackPatternObject.pat1[listPlace] == 1) {
 				
-				lazerList.add(new lazers(395,0,10,50,1));
+				lazerList.add(new lazers(395,0,10,50,1, 3));
 				
-			}else if(attackPatternObject.pat[listPlace] == 2) {
+			}else if(attackPatternObject.pat1[listPlace] == 2) {
 				
-				lazerList.add(new lazers(395,800,10,50,2));
+				lazerList.add(new lazers(395,800,10,50,2, 3));
 				
-			}else if(attackPatternObject.pat[listPlace] == 3) {
+			}else if(attackPatternObject.pat1[listPlace] == 3) {
 				
-				lazerList.add(new lazers(0,395,50,10,3));
+				lazerList.add(new lazers(0,395,50,10,3, 3));
 				
-			}else if(attackPatternObject.pat[listPlace] == 4) {
+			}else if(attackPatternObject.pat1[listPlace] == 4) {
 				
-				lazerList.add(new lazers(800,395,50,10,4));
+				lazerList.add(new lazers(800,395,50,10,4,3 ));
 				
 			}
 			listPlace++;
+		}
+		for (int i = 0; i < lazerList.size(); i++) {
+
+			lazerList.get(i).update();
+			System.out.println("Me too!");
 		}
 			
 		
 	}
 
-	public void lList() {
+	public void dlList(Graphics g) {
+		System.out.println();
 		for (int i = 0; i < lazerList.size(); i++) {
+			
+			lazerList.get(i).draw(g);
 			
 			
 		}
 	}
+	
 }
