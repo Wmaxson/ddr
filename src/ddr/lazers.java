@@ -18,6 +18,8 @@ public class lazers extends GameObject{
 			//4 = Right
 	
 	public void update() {
+
+		
 		if (dir == 1) {
 			y+=speed;
 		} else if (dir == 2) {
@@ -29,12 +31,16 @@ public class lazers extends GameObject{
 		} else {
 			
 		}
+		
+		super.update();
 	}
 	
 	public void draw(Graphics g) {
+		if (isAlive) {
 		g.setColor(Color.RED);
 	    g.fillRect(x, y, width, height);
-	}
+		}
+		}
 
 	
 	

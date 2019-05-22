@@ -34,6 +34,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		checkCollision();
 		Player.update();
 		man.update();
 		//System.out.println("yee");
@@ -92,6 +93,23 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		//System.out.println("released");
+	}
+	
+	public void checkCollision() {
+		for (int i = 0; i < man.lazerList.size(); i++) {
+					
+			if(Player.r.intersects(man.lazerList.get(i).hitBox)){
+		
+		        man.lazerList.get(i).isAlive = false;
+		        System.out.println("e");
+			}
+			
+			if(Player.hitBox.intersects(man.lazerList.get(i).hitBox)){
+		        Player.isAlive = true;
+		        man.lazerList.get(i).isAlive = false;
+		        System.out.println("e");
+			}
+		}
 	}
 	
 }
