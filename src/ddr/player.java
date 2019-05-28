@@ -2,7 +2,7 @@ package ddr;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.Rectangle; //Condence?
 
 public class player extends GameObject {
 	String dir;
@@ -10,23 +10,22 @@ public class player extends GameObject {
 	int sY;
 	Rectangle r;
 	
-	public player(int x1, int y1, int width1, int height1) {
+	public player(int x1, int y1, int width1, int height1) { 
 		
 		super(x1, y1, width1, height1);
 		dir = "";
 		sX = 0;
 		sY = 0;
 		r = new Rectangle();
-		// TODO Auto-generated constructor stub
 	}
-	public void draw(Graphics g){
+	public void draw(Graphics g){ //Setup images
 		 g.setColor(Color.BLUE);
 	     g.fillRect(x, y, width, height);
 	     
 	     
 	}
 	
-	public void drawSheild(Graphics g){
+	public void drawSheild(Graphics g){ //Make me more efficent: (Arrays?)
 		 g.setColor(Color.GREEN);
 	     
 		 if (dir.equals("u")) {
