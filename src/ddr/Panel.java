@@ -19,6 +19,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 	public static float totalTime = 0;
 	enemyManager man = new enemyManager();
 	sound s;
+	enemy Enemy = new enemy(350,20,100,100, 100);
 	public Panel() {
 				
 		timer = new Timer(1000/60, this);
@@ -37,6 +38,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		checkCollision();
 		Player.update();
 		man.update();
+		Enemy.update();
 		//System.out.println("yee");
 		repaint();
 		endTime = System.currentTimeMillis();
@@ -52,7 +54,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		obj.draw(g);  
 		Player.draw(g);
 		Player.drawSheild(g);
-		
+		Enemy.draw(g);;
 		man.dlList(g);
 		
 	 }
@@ -99,15 +101,17 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		for (int i = 0; i < man.lazerList.size(); i++) {
 					
 			if(Player.r.intersects(man.lazerList.get(i).hitBox)){
-		
+				Enemy.health -= 5;
 		        man.lazerList.get(i).isAlive = false;
 		        System.out.println("e");
 			}
 			
 			if(Player.hitBox.intersects(man.lazerList.get(i).hitBox)){
-		        Player.isAlive = true;
-		        man.lazerList.get(i).isAlive = false;
+				
+				man.lazerList.get(i).isAlive = false;
 		        System.out.println("e");
+		        Player.health -= 1;
+		        
 			}
 		}
 	}

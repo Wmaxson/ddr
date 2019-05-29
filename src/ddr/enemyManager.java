@@ -51,11 +51,22 @@ public class enemyManager {
 				
 			}
 			listPlace++;
+			
+			if (listPlace >= attackPatternObject.patT.length) {
+				listPlace = 0;
+			}
 		}
+		
+		
+		
 		for (int i = 0; i < lazerList.size(); i++) {
 
 			lazerList.get(i).update();
 			System.out.println("Me too!");
+			
+			if (lazerList.get(i).isAlive == false) {
+				lazerList.remove(i);
+			}
 		}
 			
 		
