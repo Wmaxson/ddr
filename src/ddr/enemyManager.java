@@ -12,12 +12,14 @@ public class enemyManager {
 	lazers lazer;
 	player Player;
 	long launchtime = 0;
-	
-	
+	enemy e;
+	Boolean eA;
 	public enemyManager() {
 	
 	lazerList= new ArrayList<>();	
 	launchtime = Panel.totalMS;
+	eA = true;
+	
 	}
 	
 	public void update() {
@@ -55,6 +57,12 @@ public class enemyManager {
 			if (listPlace >= attackPatternObject.patT.length) {
 				listPlace = 0;
 			}
+			
+			if (eA == false) {
+				listPlace = 0;
+			}
+			
+			
 		}
 		
 		
@@ -63,7 +71,6 @@ public class enemyManager {
 
 			lazerList.get(i).update();
 			System.out.println("Me too!");
-			
 			if (lazerList.get(i).isAlive == false) {
 				lazerList.remove(i);
 			}
@@ -80,6 +87,12 @@ public class enemyManager {
 			
 			
 		}
+	}
+	
+	public Boolean getEnemyAlive(Boolean e) {
+		eA=e;
+		return e;
+		
 	}
 	
 	

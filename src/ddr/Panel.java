@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.Timer;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 public class Panel extends JPanel implements ActionListener, KeyListener{  
 	
@@ -17,11 +20,14 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 	public static long totalMS = 0;
 	public static float frameTime = 0;
 	public static float totalTime = 0;
+	JLabel playerI;
 	enemyManager man = new enemyManager();
 	sound s;
-	enemy Enemy = new enemy(350,20,100,100, 100);
+	enemy Enemy = new enemy(350,20,75,75, 20);
 	public Panel() {
-				
+		playerI = new JLabel();		
+		
+		
 		timer = new Timer(1000/60, this);
 		
 		Player = new player(375, 375, 50,50);
@@ -32,6 +38,10 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		
 		s = new sound();
 		
+		playerI.setIcon(new ImageIcon(getClass().getResource("player.gif")));
+		setLayout(null);
+		playerI.setBounds(Player.x, Player.y, 50, 50);
+		add(playerI);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -47,7 +57,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		totalTime+=frameTime;
 		startTime = endTime;
 		System.out.println(totalTime);
-		
+		man.getEnemyAlive(Enemy.isAlive);
 	}
 	@Override
 	public void paintComponent(Graphics g){
