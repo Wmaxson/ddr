@@ -80,7 +80,6 @@ public class player extends GameObject {
 	public void update(){
 		super.update();
 		if (isAlive == false) {
-			System.exit(0);
 		}
 		if (health <= 0) {
 			isAlive = false;

@@ -15,15 +15,35 @@ public class enemy extends GameObject {
 	 public static BufferedImage enemy2;
 	 Random randy;
 	 int ran;
+	 public static BufferedImage m1;
+		public static BufferedImage m2;
+		public static BufferedImage f1;
+		public static BufferedImage f2;
+		public static BufferedImage p1;
+		public static BufferedImage p2;
+		public static BufferedImage w1;
+		public static BufferedImage w2;
+		public static BufferedImage ma;
+		public static BufferedImage fa;
+		public static BufferedImage pa;
+		public static BufferedImage wa;
 	public enemy(int x1, int y1, int width1, int height1, double health1) {
 		super(x1, y1, width1, height1);
 		
 		try {
-			enemy1 = ImageIO.read(this.getClass().getResourceAsStream("enemy1.png"));
-			enemy2 = ImageIO.read(this.getClass().getResourceAsStream("enemy2.png"));
-			enemy1 = ImageIO.read(this.getClass().getResourceAsStream("enemy1.png"));
-			enemy1 = ImageIO.read(this.getClass().getResourceAsStream("enemy1.png"));
-			enemy1 = ImageIO.read(this.getClass().getResourceAsStream("enemy1.png"));
+			
+			m1 = ImageIO.read(this.getClass().getResourceAsStream("mud1.png"));
+			m2 = ImageIO.read(this.getClass().getResourceAsStream("mud2.png"));
+			f1 = ImageIO.read(this.getClass().getResourceAsStream("fire1.png"));
+			f2 = ImageIO.read(this.getClass().getResourceAsStream("fire2.png"));
+			p1 = ImageIO.read(this.getClass().getResourceAsStream("plant1.png"));
+			p2 = ImageIO.read(this.getClass().getResourceAsStream("plant2.png"));
+			w1 = ImageIO.read(this.getClass().getResourceAsStream("water1.png"));
+			w2 = ImageIO.read(this.getClass().getResourceAsStream("water2.png"));
+			ma = ImageIO.read(this.getClass().getResourceAsStream("mud2.png"));
+			fa = ImageIO.read(this.getClass().getResourceAsStream("fireArrow.png"));
+			pa = ImageIO.read(this.getClass().getResourceAsStream("plantArrow.png"));
+			wa = ImageIO.read(this.getClass().getResourceAsStream("waterArrow.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,9 +80,9 @@ public class enemy extends GameObject {
 		
 		g.setColor(Color.YELLOW);
 		if (ran == 0) {
-			g.drawImage(enemy1, x, y, width, height, null);
+			g.drawImage(m1, x, y, width, height, null);
 		} else if (ran == 1) {
-			g.drawImage(enemy2, x, y, width, height, null);
+			g.drawImage(m2, x, y, width, height, null);
 		}
 		
 		g.setColor(Color.BLACK);

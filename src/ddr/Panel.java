@@ -4,7 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
 import javax.swing.Timer;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -24,13 +28,23 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 	enemyManager man = new enemyManager();
 	sound s;
 	enemy Enemy = new enemy(350,20,75,75, 20);
+	public static BufferedImage br;
+	int e1;
+	Boolean e2;
 	public Panel() {
-		playerI = new JLabel();		
+		playerI = new JLabel();	
 		
+		 try {
+			br = ImageIO.read(this.getClass().getResourceAsStream("pixil-frame-0.png"));
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		timer = new Timer(1000/60, this);
 		
-		Player = new player(375, 375, 50,50);
+		
 		
 		gameStart();
 		
@@ -38,34 +52,65 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		
 		s = new sound();
 		
-		playerI.setIcon(new ImageIcon(getClass().getResource("player.gif")));
+		
 		setLayout(null);
-		playerI.setBounds(Player.x, Player.y, 50, 50);
+		
 		add(playerI);
+		e1 = 0;
+		e2 = false;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		checkCollision();
-		Player.update();
-		man.update();
-		Enemy.update();
-		//System.out.println("yee");
-		repaint();
-		endTime = System.currentTimeMillis();
-		totalMS += endTime-startTime;
-		frameTime = (float)(endTime-startTime)/1000.0f;
-		totalTime+=frameTime;
-		startTime = endTime;
-		System.out.println(totalTime);
-		man.getEnemyAlive(Enemy.isAlive);
+		if (e1 == 1) {
+			if (e2 == false) {
+				Player = new player(385, 350, 50,50);
+				playerI.setIcon(new ImageIcon(getClass().getResource("player.gif")));
+				playerI.setBounds(Player.x, Player.y, 50, 50);
+				e2 = true;
+			}
+			
+			checkCollision();
+			Player.update();
+			man.update();
+			Enemy.update();
+			//System.out.println("yee");
+			repaint();
+			endTime = System.currentTimeMillis();
+			totalMS += endTime-startTime;
+			frameTime = (float)(endTime-startTime)/1000.0f;
+			totalTime+=frameTime;
+			startTime = endTime;
+			System.out.println(totalTime);
+			man.getEnemyAlive(Enemy.isAlive);
+			if (Player.isAlive == false) {
+				e1++;
+			}
+			
+			
+			if (e1>=2) {
+				e1=0;
+			}
+		}
+		
 	}
 	@Override
 	public void paintComponent(Graphics g){
-		obj.draw(g);  
-		Player.draw(g);
-		Player.drawSheild(g);
-		Enemy.draw(g);;
-		man.dlList(g);
+		if (e1 == 0) {
+			g.setColor(Color.BLUE);
+			g.fillRect(0, 0, 800, 800);
+			g.setColor(Color.BLACK);
+			g.drawString("They stole your taco!\n\nRescue your taco!\nGet Revenge!", 300, 400);
+			g.drawString("(Press Space to continue)", 300, 420);
+		} else if (e1 == 1) {
+			g.drawImage(br, 0,0,800,800, null);
+			obj.draw(g);  
+			Player.draw(g);
+			Player.drawSheild(g);
+			Enemy.draw(g);;
+			man.dlList(g);
+		}
+		
+		
 		
 	 }
 	
@@ -95,8 +140,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 			Player.dir = "l";
 		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			Player.dir = "r";
-		} else {
-			
+		} else if(e.getKeyCode() == KeyEvent.VK_SPACE){
+			e1++;
 		}
 		
 	}
@@ -106,7 +151,9 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		// TODO Auto-generated method stub
 		//System.out.println("released");
 	}
-	
+	public void drawScreen() {
+		
+	};
 	public void checkCollision() {
 		for (int i = 0; i < man.lazerList.size(); i++) {
 					
