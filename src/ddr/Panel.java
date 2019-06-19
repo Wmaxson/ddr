@@ -27,7 +27,10 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 	JLabel playerI;
 	enemyManager man = new enemyManager();
 	sound s;
-	enemy Enemy = new enemy(350,20,75,75, 20);
+	enemy Enemy1 = new enemy(350,20,75,75,100, 1);
+	enemy Enemy2 = new enemy(780,350,75,75,100, 2);
+	enemy Enemy3 = new enemy(20,350,75,75,100, 3);
+	enemy Enemy4 = new enemy(350,780,75,75,100, 4);
 	public static BufferedImage br;
 	int e1;
 	Boolean e2;
@@ -72,7 +75,12 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 			checkCollision();
 			Player.update();
 			man.update();
-			Enemy.update();
+			
+			Enemy1.update();
+			Enemy2.update();
+			Enemy3.update();
+			Enemy4.update();
+			
 			//System.out.println("yee");
 			repaint();
 			endTime = System.currentTimeMillis();
@@ -81,7 +89,12 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 			totalTime+=frameTime;
 			startTime = endTime;
 			System.out.println(totalTime);
-			man.getEnemyAlive(Enemy.isAlive);
+			
+			man.getEnemyAlive(Enemy1.isAlive);
+			man.getEnemyAlive(Enemy2.isAlive);
+			man.getEnemyAlive(Enemy3.isAlive);
+			man.getEnemyAlive(Enemy4.isAlive);
+			
 			if (Player.isAlive == false) {
 				e1++;
 			}
@@ -106,7 +119,13 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 			obj.draw(g);  
 			Player.draw(g);
 			Player.drawSheild(g);
-			Enemy.draw(g);;
+			
+			Enemy1.draw(g);;
+			Enemy2.draw(g);;
+			Enemy3.draw(g);;
+			Enemy4.draw(g);;
+			
+			
 			man.dlList(g);
 		}
 		
@@ -158,7 +177,10 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		for (int i = 0; i < man.lazerList.size(); i++) {
 					
 			if(Player.r.intersects(man.lazerList.get(i).hitBox)){
-				Enemy.health -= 5;
+				Enemy1.health -= 5;
+				Enemy2.health -= 5;
+				Enemy3.health -= 5;
+				Enemy4.health -= 5;
 		        man.lazerList.get(i).isAlive = false;
 		        System.out.println("e");
 			}

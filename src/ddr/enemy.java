@@ -15,6 +15,7 @@ public class enemy extends GameObject {
 	 public static BufferedImage enemy2;
 	 Random randy;
 	 int ran;
+	 int eee;
 	 public static BufferedImage m1;
 		public static BufferedImage m2;
 		public static BufferedImage f1;
@@ -27,7 +28,8 @@ public class enemy extends GameObject {
 		public static BufferedImage fa;
 		public static BufferedImage pa;
 		public static BufferedImage wa;
-	public enemy(int x1, int y1, int width1, int height1, double health1) {
+		
+	public enemy(int x1, int y1, int width1, int height1, double health1, int ee) {
 		super(x1, y1, width1, height1);
 		
 		try {
@@ -50,8 +52,9 @@ public class enemy extends GameObject {
 		}
 		health = health1;
 		v = 0;
-		y-=100;
-		v=40;
+		
+		v=30;
+		eee = ee;
 		randy = new Random();
 		ran = randy.nextInt(2);
 		//ran = 1;
@@ -64,11 +67,44 @@ public class enemy extends GameObject {
 			reset();
 			
 		}
+		
 		System.out.println("v = " + v);
-		y+=v/5;
-		if (v>0) {
-			v--;
+			
+		if (eee == 1) {
+			
+			y+=v/5;
+			if (v>0) {
+				v--;
+			}
 		}
+		
+		if (eee == 2) {
+			
+			x-=v/5;
+			if (v>0) {
+				v--;
+		
+			}
+		}
+		
+		if (eee == 3) {
+			
+			x+=v/5;
+			if (v>0) {
+				v--;
+	
+			}
+	}
+		if (eee == 4) {
+			
+			y-=v/5;
+			if (v>0) {
+				v--;
+	
+			}
+	}
+		
+		
 		
 		
 		
@@ -79,16 +115,47 @@ public class enemy extends GameObject {
 			
 		
 		g.setColor(Color.YELLOW);
+		
+		if (eee == 1) {
+			
+		
 		if (ran == 0) {
 			g.drawImage(m1, x, y, width, height, null);
 		} else if (ran == 1) {
 			g.drawImage(m2, x, y, width, height, null);
 		}
-		
+		}
+		if (eee == 2) {
+			
+			
+			if (ran == 0) {
+				g.drawImage(f1, x, y, width, height, null);
+			} else if (ran == 1) {
+				g.drawImage(f2, x, y, width, height, null);
+			}
+			}
+		if (eee == 3) {
+			
+			
+			if (ran == 0) {
+				g.drawImage(w1, x, y, width, height, null);
+			} else if (ran == 1) {
+				g.drawImage(w2, x, y, width, height, null);
+			}
+			}
+		if (eee == 4) {
+			
+			
+			if (ran == 0) {
+				g.drawImage(p1, x, y, width, height, null);
+			} else if (ran == 1) {
+				g.drawImage(p2, x, y, width, height, null);
+			}
+			}
 		g.setColor(Color.BLACK);
-		g.fillRect(x, +150, 100, 10);
+		g.fillRect(x, y+75, 100, 10);
 		g.setColor(Color.GREEN);
-		g.fillRect(x, +150, (int) health, 10);
+		g.fillRect(x, y+75, (int) health, 10);
 		
 		}
 	}
