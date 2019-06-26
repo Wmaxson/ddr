@@ -28,7 +28,7 @@ public class attackPatternObject {
 	
 		}; 
 	
-public static int[] patT = 
+public static int[] pat2 = 
 			//1 = Up
 			//2 = Down
 			//3 = Left
@@ -51,6 +51,30 @@ public static int[] patT =
 					
 		
 		}; 
+
+public static int[] patT = 
+//1 = Up
+//2 = Down
+//3 = Left
+//4 = Right
+{
+	
+	
+0,0,0,0,1,0,0,0,0,0,
+0,0,0,0,2,0,0,0,0,0,
+0,0,0,0,3,0,0,0,0,0,
+0,0,0,0,4,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+1,0,0,0,1,0,0,0,0,0,
+2,0,0,0,2,0,0,0,0,0,
+3,0,0,0,3,0,0,0,0,0,
+4,0,0,0,4,0,0,0,0,0,
+1,0,0,0,2,0,0,0,0,0,
+3,0,0,0,4,0,0,0,0,0,
+		
+		
+
+}; 
 		
 	public attackPatternObject() {
 		

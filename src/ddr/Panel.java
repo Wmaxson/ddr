@@ -27,10 +27,11 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 	JLabel playerI;
 	enemyManager man = new enemyManager();
 	sound s;
-	enemy Enemy1 = new enemy(350,20,75,75,100, 1);
-	enemy Enemy2 = new enemy(780,350,75,75,100, 2);
-	enemy Enemy3 = new enemy(20,350,75,75,100, 3);
-	enemy Enemy4 = new enemy(350,780,75,75,100, 4);
+	enemy Enemy1 = new enemy(350,20,75,75,10, 1);
+	enemy Enemy2 = new enemy(350,780,75,75,10, 4);
+	enemy Enemy3 = new enemy(20,350,75,75,10, 3);
+	enemy Enemy4 = new enemy(700,350,75,75,10, 2);
+	Font font = new Font("TimesRoman", Font.PLAIN, 48);
 	public static BufferedImage br;
 	int e1;
 	Boolean e2;
@@ -90,10 +91,10 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 			startTime = endTime;
 			System.out.println(totalTime);
 			
-			man.getEnemyAlive(Enemy1.isAlive);
-			man.getEnemyAlive(Enemy2.isAlive);
-			man.getEnemyAlive(Enemy3.isAlive);
-			man.getEnemyAlive(Enemy4.isAlive);
+			man.getEnemyAlive1(Enemy1.isAlive);
+			man.getEnemyAlive2(Enemy2.isAlive);
+			man.getEnemyAlive3(Enemy3.isAlive);
+			man.getEnemyAlive4(Enemy4.isAlive);
 			
 			if (Player.isAlive == false) {
 				e1++;
@@ -112,8 +113,9 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 			g.setColor(Color.BLUE);
 			g.fillRect(0, 0, 800, 800);
 			g.setColor(Color.BLACK);
-			g.drawString("They stole your taco!\n\nRescue your taco!\nGet Revenge!", 300, 400);
-			g.drawString("(Press Space to continue)", 300, 420);
+			g.setFont(font);
+			g.drawString("They stole your taco!\n\nRescue your taco!\nGet Revenge!", 20, 400);
+			g.drawString("(Press Space to continue)", 100, 470);
 		} else if (e1 == 1) {
 			g.drawImage(br, 0,0,800,800, null);
 			obj.draw(g);  
@@ -177,13 +179,23 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		for (int i = 0; i < man.lazerList.size(); i++) {
 					
 			if(Player.r.intersects(man.lazerList.get(i).hitBox)){
-				Enemy1.health -= 5;
-				Enemy2.health -= 5;
-				Enemy3.health -= 5;
-				Enemy4.health -= 5;
-		        man.lazerList.get(i).isAlive = false;
-		        System.out.println("e");
-			}
+				if (man.lazerList.get(i).dir == 1) {
+					Enemy1.health -= 10;
+					}
+					if (man.lazerList.get(i).dir == 2) {
+					Enemy2.health -= 10;
+					}
+					if (man.lazerList.get(i).dir == 3) {
+					Enemy3.health -= 10;
+					}
+					if (man.lazerList.get(i).dir == 4) {
+					Enemy4.health -= 10;
+					}
+					
+					man.lazerList.get(i).isAlive = false;
+					System.out.println("e");
+					
+				}
 			
 			if(Player.hitBox.intersects(man.lazerList.get(i).hitBox)){
 				

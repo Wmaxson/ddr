@@ -16,6 +16,10 @@ public class enemy extends GameObject {
 	 Random randy;
 	 int ran;
 	 int eee;
+	 int startX;
+	 int startY;
+	 int lives;
+	 int maxLives;
 	 public static BufferedImage m1;
 		public static BufferedImage m2;
 		public static BufferedImage f1;
@@ -46,13 +50,16 @@ public class enemy extends GameObject {
 			fa = ImageIO.read(this.getClass().getResourceAsStream("fireArrow.png"));
 			pa = ImageIO.read(this.getClass().getResourceAsStream("plantArrow.png"));
 			wa = ImageIO.read(this.getClass().getResourceAsStream("waterArrow.png"));
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		 lives =2;
 		health = health1;
 		v = 0;
-		
+		startX = x1;
+		startY = y1;
 		v=30;
 		eee = ee;
 		randy = new Random();
@@ -64,8 +71,9 @@ public class enemy extends GameObject {
 		
 		if (health <= 0) {
 			isAlive = false;
+			if (lives>0) {
 			reset();
-			
+			}
 		}
 		
 		System.out.println("v = " + v);
@@ -160,13 +168,20 @@ public class enemy extends GameObject {
 		}
 	}
 	public void reset() {
+		
 		isAlive = true;
-		health = 100;
-		v = 0;
-		y = -100;
-		v=40;
+		health = 10; 
+		v=30;
+		//enemy Enemy1 = new enemy(350,20,75,75,100, 1);
+		//enemy Enemy2 = new enemy(780,350,75,75,100, 2);
+		//enemy Enemy3 = new enemy(20,350,75,75,100, 3);
+		//enemy Enemy4 = new enemy(350,780,75,75,100, 4);
+		x = startX;
+		y = startY;
 		randy = new Random();
 		ran = randy.nextInt(2);
+		lives--;
+		
 	}
 	
 	

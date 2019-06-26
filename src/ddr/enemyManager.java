@@ -13,12 +13,18 @@ public class enemyManager {
 	player Player;
 	long launchtime = 0;
 	enemy e;
-	Boolean eA;
+	Boolean eA1;
+	Boolean eA2;
+	Boolean eA3;
+	Boolean eA4;
 	public enemyManager() {
 	
 	lazerList= new ArrayList<>();	
 	launchtime = Panel.totalMS;
-	eA = true;
+	eA1 = true;
+	eA2 = true;
+	eA3 = true;
+	eA4 = true;
 	
 	}
 	
@@ -31,23 +37,23 @@ public class enemyManager {
 			
 			
 			
-			if (attackPatternObject.patT[listPlace] == 0) {
+			if (attackPatternObject.patT[listPlace] == 0 ) {
 				
 			launchtime += 100;
 				
-			}else if(attackPatternObject.patT[listPlace] == 1) {
+			}else if(attackPatternObject.patT[listPlace] == 1&&eA1) {
 				
 				lazerList.add(new lazers(395,0,10,50,1, 3));
 				
-			}else if(attackPatternObject.patT[listPlace] == 2) {
+			}else if(attackPatternObject.patT[listPlace] == 2&&eA2) {
 				
 				lazerList.add(new lazers(395,800,10,50,2, 3));
 				
-			}else if(attackPatternObject.patT[listPlace] == 3) {
+			}else if(attackPatternObject.patT[listPlace] == 3&&eA3) {
 				
 				lazerList.add(new lazers(0,395,50,10,3, 3));
 				
-			}else if(attackPatternObject.patT[listPlace] == 4) {
+			}else if(attackPatternObject.patT[listPlace] == 4&&eA4) {
 				
 				lazerList.add(new lazers(800,395,50,10,4,3 ));
 				
@@ -58,9 +64,6 @@ public class enemyManager {
 				listPlace = 0;
 			}
 			
-			if (eA == false) {
-				listPlace = 0;
-			}
 			
 			
 		}
@@ -89,8 +92,23 @@ public class enemyManager {
 		}
 	}
 	
-	public Boolean getEnemyAlive(Boolean e) {
-		eA=e;
+	public Boolean getEnemyAlive4(Boolean e) {
+		eA4=e;
+		return e;
+		
+	}
+	public Boolean getEnemyAlive1(Boolean e) {
+		eA1=e;
+		return e;
+		
+	}
+	public Boolean getEnemyAlive2(Boolean e) {
+		eA2=e;
+		return e;
+		
+	}
+	public Boolean getEnemyAlive3(Boolean e) {
+		eA3=e;
 		return e;
 		
 	}
