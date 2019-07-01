@@ -18,12 +18,15 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 	player Player;
 	Timer timer;
 	GameObject obj;
-	
+	boss bE;
+	Boolean bossAlive;
 	long startTime = 0;
 	long endTime = 0;
 	public static long totalMS = 0;
 	public static float frameTime = 0;
 	public static float totalTime = 0;
+	int v;
+	int h;
 	JLabel playerI;
 	enemyManager man = new enemyManager();
 	sound s;
@@ -31,40 +34,52 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 	enemy Enemy2 = new enemy(350,780,75,75,10, 4);
 	enemy Enemy3 = new enemy(20,350,75,75,10, 3);
 	enemy Enemy4 = new enemy(700,350,75,75,10, 2);
-	Font font = new Font("TimesRoman", Font.PLAIN, 48);
+	Font font = new Font("TimesRoman", Font.PLAIN, 30);
 	public static BufferedImage br;
+	public static BufferedImage bs;
 	int e1;
 	Boolean e2;
+	Boolean y;
 	public Panel() {
-		playerI = new JLabel();	
 		
+		playerI = new JLabel();	
+		y = true;
 		 try {
 			br = ImageIO.read(this.getClass().getResourceAsStream("pixil-frame-0.png"));
+			bs = ImageIO.read(this.getClass().getResourceAsStream("pixil-frame-0 (3).png"));
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		timer = new Timer(1000/60, this);
-		
-		
-		
 		gameStart();
-		
 		obj = new GameObject(10,10,0,0);
-		
+		bossAlive = false;
+		bE = new boss(350, 20, 100, 100, 1000);
 		s = new sound();
-		
-		
 		setLayout(null);
-		
 		add(playerI);
 		e1 = 0;
 		e2 = false;
+		v = 0;
+		h = 400;
+		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		System.out.println("Yeet " + bossAlive);
+		if (v >= 0) {
+			h-=v;
+		} else {
+			v = 0;
+		}
+		v--;
+		if (bossAlive && y) {
+			v = 28;
+			y = false;
+		}
+		
 		if (e1 == 1) {
 			if (e2 == false) {
 				Player = new player(385, 350, 50,50);
@@ -108,16 +123,21 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		
 	}
 	@Override
-	public void paintComponent(Graphics g){
+	public void paintComponent(Graphics g){ //yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet
 		if (e1 == 0) {
-			g.setColor(Color.BLUE);
-			g.fillRect(0, 0, 800, 800);
+			g.setColor(Color.GREEN);
+			g.fillRect(0, 0, 800, 1000);
 			g.setColor(Color.BLACK);
 			g.setFont(font);
-			g.drawString("They stole your taco!\n\nRescue your taco!\nGet Revenge!", 20, 400);
-			g.drawString("(Press Space to continue)", 100, 470);
+			g.drawString("They stole your taco! Rescue your taco! Get Revenge!", 80, 400);
+			g.drawString("(Press Space to continue)", 200, 470);
 		} else if (e1 == 1) {
+			g.setColor(Color.white);
+			g.fillRect(0, 800, 800, 200);
 			g.drawImage(br, 0,0,800,800, null);
+			g.drawImage(bs, 200,800,400,200, null);
+			g.setColor(Color.white);
+			g.fillRect(0, 800, 800, h);
 			obj.draw(g);  
 			Player.draw(g);
 			Player.drawSheild(g);
@@ -126,8 +146,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 			Enemy2.draw(g);;
 			Enemy3.draw(g);;
 			Enemy4.draw(g);;
-			
-			
 			man.dlList(g);
 		}
 		
@@ -175,6 +193,11 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 	public void drawScreen() {
 		
 	};
+	
+	public Boolean getBossAlive() {
+		return bossAlive;
+	}
+	
 	public void checkCollision() {
 		for (int i = 0; i < man.lazerList.size(); i++) {
 					
@@ -190,6 +213,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 					}
 					if (man.lazerList.get(i).dir == 4) {
 					Enemy4.health -= 10;
+					
 					}
 					
 					man.lazerList.get(i).isAlive = false;
@@ -201,8 +225,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 				
 				man.lazerList.get(i).isAlive = false;
 		        System.out.println("e");
-		        Player.health -= 1;
-		        
+		        Player.health -= 0; //REEE
+		        bossAlive = true;
 			}
 		}
 	}

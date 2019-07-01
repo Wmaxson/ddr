@@ -1,17 +1,24 @@
 package ddr;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Timer;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class runner {
+public class runner implements ActionListener{
 	JFrame frame;
 	Panel panel;
-	final int WIDTH = 800;
-	final int HEIGHT = 800;
-	
+	int WIDTH = 800;
+	int HEIGHT = 1200;
+	Boolean bossActive;
+	Timer timer;
 	public runner() {
+		Timer timer = new Timer();
 		
+		bossActive = false;
 		frame = new JFrame();
 		panel= new Panel();
 		frame.add(panel); 	
@@ -21,10 +28,19 @@ public class runner {
         frame.setVisible(true);
         frame.addKeyListener(panel);
         setUp();
+          
 	}
 	
 	public static void main(String[] args) {
 	new runner();	
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		bossActive = panel.getBossAlive();
+		System.out.println("Yeet " + bossActive);
+		if (bossActive) {
+			frame.getContentPane().setPreferredSize(new Dimension(WIDTH, 1000));
+		}
 	}
 	
 	public void setUp() {

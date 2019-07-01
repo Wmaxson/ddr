@@ -3,6 +3,8 @@ package ddr;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 
 
 public class enemyManager {
@@ -17,6 +19,7 @@ public class enemyManager {
 	Boolean eA2;
 	Boolean eA3;
 	Boolean eA4;
+	//ImageIcon ii = new ImageIcon(this.getClass().getResource("pixel-gif-drawing"));
 	public enemyManager() {
 	
 	lazerList= new ArrayList<>();	
@@ -25,8 +28,8 @@ public class enemyManager {
 	eA2 = true;
 	eA3 = true;
 	eA4 = true;
-	
-	}
+
+	} // yeet
 	
 	public void update() {
 		System.out.println("totalMS = " + Panel.totalMS);

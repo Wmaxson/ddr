@@ -19,7 +19,7 @@ import java.net.URL;
         {
             sound = new URL("file:src/BeepBox-Song.wav") ;
             noise = JApplet.newAudioClip(sound);
-            noise.play();
+           // noise.play();
         } catch (MalformedURLException e)
         {
             e.printStackTrace();
