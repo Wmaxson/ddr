@@ -1,4 +1,5 @@
 package ddr;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,8 +14,12 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-public class Panel extends JPanel implements ActionListener, KeyListener{  
-	
+
+public class Panel extends JPanel implements ActionListener, KeyListener {
+	int lives1;
+	int lives2;
+	int lives3;
+	int lives4;
 	player Player;
 	Timer timer;
 	GameObject obj;
@@ -30,31 +35,36 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 	JLabel playerI;
 	enemyManager man = new enemyManager();
 	sound s;
-	enemy Enemy1 = new enemy(350,20,75,75,10, 1);
-	enemy Enemy2 = new enemy(350,780,75,75,10, 4);
-	enemy Enemy3 = new enemy(20,350,75,75,10, 3);
-	enemy Enemy4 = new enemy(700,350,75,75,10, 2);
+	enemy Enemy1 = new enemy(350, 20, 75, 75, 10, 1);
+	enemy Enemy2 = new enemy(350, 780, 75, 75, 10, 4);
+	enemy Enemy3 = new enemy(20, 350, 75, 75, 10, 3);
+	enemy Enemy4 = new enemy(700, 350, 75, 75, 10, 2);
 	Font font = new Font("TimesRoman", Font.PLAIN, 30);
 	public static BufferedImage br;
 	public static BufferedImage bs;
+	Boolean ea1;
+	Boolean ea2;
+	Boolean ea3;
+	Boolean ea4;
 	int e1;
 	Boolean e2;
 	Boolean y;
+
 	public Panel() {
-		
-		playerI = new JLabel();	
+
+		playerI = new JLabel();
 		y = true;
-		 try {
+		try {
 			br = ImageIO.read(this.getClass().getResourceAsStream("pixil-frame-0.png"));
 			bs = ImageIO.read(this.getClass().getResourceAsStream("pixil-frame-0 (3).png"));
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		timer = new Timer(1000/60, this);
+		timer = new Timer(1000 / 60, this);
 		gameStart();
-		obj = new GameObject(10,10,0,0);
+		obj = new GameObject(10, 10, 0, 0);
 		bossAlive = false;
 		bE = new boss(350, 20, 100, 100, 1000);
 		s = new sound();
@@ -64,13 +74,14 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		e2 = false;
 		v = 0;
 		h = 400;
-		
+
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Yeet " + bossAlive);
 		if (v >= 0) {
-			h-=v;
+			h -= v;
 		} else {
 			v = 0;
 		}
@@ -79,51 +90,67 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 			v = 28;
 			y = false;
 		}
-		
+
 		if (e1 == 1) {
 			if (e2 == false) {
-				Player = new player(385, 350, 50,50);
+				Player = new player(385, 350, 50, 50);
 				playerI.setIcon(new ImageIcon(getClass().getResource("player.gif")));
 				playerI.setBounds(Player.x, Player.y, 50, 50);
 				e2 = true;
 			}
-			
+
 			checkCollision();
 			Player.update();
-			man.update();
+			man.update(bossAlive);
+
+			lives1 = Enemy1.update(bossAlive);
+			lives2 = Enemy2.update(bossAlive);
+			lives3 = Enemy3.update(bossAlive);
+			lives4 = Enemy4.update(bossAlive);
+
+			System.out.println(lives1+lives2+lives3+lives4);
 			
-			Enemy1.update();
-			Enemy2.update();
-			Enemy3.update();
-			Enemy4.update();
-			
-			//System.out.println("yee");
+			// System.out.println("yee");
 			repaint();
 			endTime = System.currentTimeMillis();
-			totalMS += endTime-startTime;
-			frameTime = (float)(endTime-startTime)/1000.0f;
-			totalTime+=frameTime;
+			totalMS += endTime - startTime;
+			frameTime = (float) (endTime - startTime) / 1000.0f;
+			totalTime += frameTime;
 			startTime = endTime;
 			System.out.println(totalTime);
+
+			ea1 = man.getEnemyAlive1(Enemy1.isAlive);
+			ea2 = man.getEnemyAlive2(Enemy2.isAlive);
+			ea3 = man.getEnemyAlive3(Enemy3.isAlive);
+			ea4 = man.getEnemyAlive4(Enemy4.isAlive);
+
+			System.out.println(ea1);
+			System.out.println(ea2);
+			System.out.println(ea3);
+			System.out.println(ea4);
 			
-			man.getEnemyAlive1(Enemy1.isAlive);
-			man.getEnemyAlive2(Enemy2.isAlive);
-			man.getEnemyAlive3(Enemy3.isAlive);
-			man.getEnemyAlive4(Enemy4.isAlive);
-			
+			if (ea1 == false && ea2 == false && ea3 == false && ea4 == false) {
+				//bossAlive = true;
+			} 
+			if (lives1+lives2+lives3+lives4 <= 0) {
+				bossAlive = true;
+			} else {
+				bossAlive = false;
+			}
+
 			if (Player.isAlive == false) {
 				e1++;
 			}
-			
-			
-			if (e1>=2) {
-				e1=0;
+
+			if (e1 >= 2) {
+				e1 = 0;
 			}
 		}
-		
+
 	}
+
 	@Override
-	public void paintComponent(Graphics g){ //yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet
+	public void paintComponent(Graphics g) { // yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet
 		if (e1 == 0) {
 			g.setColor(Color.GREEN);
 			g.fillRect(0, 0, 800, 1000);
@@ -134,101 +161,104 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 		} else if (e1 == 1) {
 			g.setColor(Color.white);
 			g.fillRect(0, 800, 800, 200);
-			g.drawImage(br, 0,0,800,800, null);
-			g.drawImage(bs, 200,800,400,200, null);
+			g.drawImage(br, 0, 0, 800, 800, null);
+			g.drawImage(bs, 200, 800, 400, 200, null);
 			g.setColor(Color.white);
 			g.fillRect(0, 800, 800, h);
-			obj.draw(g);  
+			obj.draw(g);
 			Player.draw(g);
 			Player.drawSheild(g);
+
+			Enemy1.draw(g);
 			
-			Enemy1.draw(g);;
-			Enemy2.draw(g);;
-			Enemy3.draw(g);;
-			Enemy4.draw(g);;
+			Enemy2.draw(g);
+			
+			Enemy3.draw(g);
+			
+			Enemy4.draw(g);
+			
 			man.dlList(g);
 		}
-		
-		
-		
-	 }
-	
+
+	}
+
 	public void gameStart() {
 		startTime = System.currentTimeMillis();
 		timer.start();
-		
-	}
-	@Override
-	
 
-	
+	}
+
+	@Override
+
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		//System.out.println("typed");
+		// System.out.println("typed");
 	}
+
 	@Override
-	
+
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		//System.out.println("Pressed");
-		if(e.getKeyCode() == KeyEvent.VK_UP) {
+		// System.out.println("Pressed");
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			Player.dir = "u";
-		} else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			Player.dir = "d";
-		} else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			Player.dir = "l";
-		} else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			Player.dir = "r";
-		} else if(e.getKeyCode() == KeyEvent.VK_SPACE){
+		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			e1++;
 		}
-		
+
 	}
+
 	@Override
 
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		//System.out.println("released");
+		// System.out.println("released");
 	}
+
 	public void drawScreen() {
-		
+
 	};
-	
+
 	public Boolean getBossAlive() {
 		return bossAlive;
 	}
-	
+
 	public void checkCollision() {
 		for (int i = 0; i < man.lazerList.size(); i++) {
-					
-			if(Player.r.intersects(man.lazerList.get(i).hitBox)){
+
+			if (Player.r.intersects(man.lazerList.get(i).hitBox)) {
 				if (man.lazerList.get(i).dir == 1) {
 					Enemy1.health -= 10;
-					}
-					if (man.lazerList.get(i).dir == 2) {
-					Enemy2.health -= 10;
-					}
-					if (man.lazerList.get(i).dir == 3) {
-					Enemy3.health -= 10;
-					}
-					if (man.lazerList.get(i).dir == 4) {
-					Enemy4.health -= 10;
-					
-					}
-					
-					man.lazerList.get(i).isAlive = false;
-					System.out.println("e");
-					
 				}
-			
-			if(Player.hitBox.intersects(man.lazerList.get(i).hitBox)){
-				
+				if (man.lazerList.get(i).dir == 2) {
+					Enemy2.health -= 10;
+				}
+				if (man.lazerList.get(i).dir == 3) {
+					Enemy3.health -= 10;
+				}
+				if (man.lazerList.get(i).dir == 4) {
+					Enemy4.health -= 10;
+
+				}
+
 				man.lazerList.get(i).isAlive = false;
-		        System.out.println("e");
-		        Player.health -= 0; //REEE
-		        bossAlive = true;
+				System.out.println("e");
+
+			}
+
+			if (Player.hitBox.intersects(man.lazerList.get(i).hitBox)) {
+
+				man.lazerList.get(i).isAlive = false;
+				System.out.println("e");
+				Player.health -= 0; // REEE
 			}
 		}
 	}
-	
+
 }
