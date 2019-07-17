@@ -12,7 +12,7 @@ public class runner implements ActionListener{
 	JFrame frame;
 	Panel panel;
 	int WIDTH = 800;
-	int HEIGHT = 1200;
+	int HEIGHT = 1000;
 	Boolean bossActive;
 	Timer timer;
 	public runner() {

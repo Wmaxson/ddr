@@ -35,10 +35,10 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	JLabel playerI;
 	enemyManager man = new enemyManager();
 	sound s;
-	enemy Enemy1 = new enemy(350, 20, 75, 75, 10, 1);
-	enemy Enemy2 = new enemy(350, 780, 75, 75, 10, 4);
-	enemy Enemy3 = new enemy(20, 350, 75, 75, 10, 3);
-	enemy Enemy4 = new enemy(700, 350, 75, 75, 10, 2);
+	enemy Enemy1 = new enemy(350, 20, 75, 75, 100, 1);
+	enemy Enemy2 = new enemy(350, 780, 75, 75, 100, 4);
+	enemy Enemy3 = new enemy(20, 350, 75, 75, 100, 3);
+	enemy Enemy4 = new enemy(700, 350, 75, 75, 100, 2);
 	Font font = new Font("TimesRoman", Font.PLAIN, 30);
 	public static BufferedImage br;
 	public static BufferedImage bs;
@@ -148,9 +148,10 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		}
 
 	}
+	
 
 	@Override
-	public void paintComponent(Graphics g) { // yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet
+	public void paintComponent(Graphics g) { // yeet
 		if (e1 == 0) {
 			g.setColor(Color.GREEN);
 			g.fillRect(0, 0, 800, 1000);
@@ -256,7 +257,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 
 				man.lazerList.get(i).isAlive = false;
 				System.out.println("e");
-				Player.health -= 0; // REEE
+				Player.health -= 1; // REEE
 			}
 		}
 	}

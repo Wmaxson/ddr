@@ -59,7 +59,7 @@ public class enemy extends GameObject {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		lives = 3;
+		lives = 2;
 		health = health1;
 		v = 0;
 		startX = x1;
@@ -190,7 +190,7 @@ public class enemy extends GameObject {
 	public void reset() {
 
 		isAlive = true;
-		health = 10;
+		health = 100;
 		v = 30;
 		// enemy Enemy1 = new enemy(350,20,75,75,100, 1);
 		// enemy Enemy2 = new enemy(780,350,75,75,100, 2);
